@@ -292,7 +292,7 @@ const SkillsDisplay = () => {
       </div>
       <div className="mt-8 flex justify-center">
           <Button variant="outline" size="lg" >
-            <a href="https://github.com/Padmavathi041101" download>
+            <a href="https://drive.google.com/file/d/1zWPYPKf8MHz-5yg5TXkZxDKRwB5FkgDD/view?usp=sharing" download>
             Download CV
             </a>
           </Button>
