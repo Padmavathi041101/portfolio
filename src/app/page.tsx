@@ -125,6 +125,7 @@ const AnimatedIntro = () => {
       }
 
       draw() {
+        if (!ctx) return;
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
         ctx.font = '10px sans-serif';
