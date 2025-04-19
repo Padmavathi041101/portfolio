@@ -55,8 +55,20 @@ const AnimatedIntro = () => {
     const particles: Particle[] = [];
     const numNodes = 50;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function getCanvasWidth() {
+      return canvasRef.current ? canvasRef.current.width : 0;
+    }
+    function getCanvasHeight() {
+      return canvasRef.current ? canvasRef.current.height : 0;
+    }
+    function getCtx() {
+      return canvasRef.current ? canvasRef.current.getContext('2d') : null;
+    }
+
+    if (canvas) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
     class Node {
       x: number;
@@ -76,6 +88,7 @@ const AnimatedIntro = () => {
       }
 
       draw() {
+        const ctx = getCtx();
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -86,14 +99,13 @@ const AnimatedIntro = () => {
       update() {
         this.x += this.vx;
         this.y += this.vy;
-
+        const canvas = canvasRef.current;
         if (canvas && (this.x + this.radius > canvas.width || this.x - this.radius < 0)) {
           this.vx = -this.vx;
         }
         if (canvas && (this.y + this.radius > canvas.height || this.y - this.radius < 0)) {
           this.vy = -this.vy;
         }
-
         this.draw();
       }
 
@@ -125,6 +137,7 @@ const AnimatedIntro = () => {
       }
 
       draw() {
+        const ctx = getCtx();
         if (!ctx) return;
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
@@ -151,6 +164,8 @@ const AnimatedIntro = () => {
     }
 
     function initNodes() {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
       for (let i = 0; i < numNodes; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
@@ -159,6 +174,8 @@ const AnimatedIntro = () => {
     }
 
     function drawConnections() {
+      const ctx = getCtx();
+      if (!ctx) return;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
@@ -178,6 +195,9 @@ const AnimatedIntro = () => {
     }
 
     function animate() {
+      const canvas = canvasRef.current;
+      const ctx = getCtx();
+      if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawConnections();
 
@@ -190,11 +210,11 @@ const AnimatedIntro = () => {
       });
 
       // Update and draw particles, remove faded ones
-      particles.forEach((particle, index) => {
-        if (!particle.update()) {
-          particles.splice(index, 1);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        if (!particles[i].update()) {
+          particles.splice(i, 1);
         }
-      });
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     }
@@ -203,6 +223,8 @@ const AnimatedIntro = () => {
     animate();
 
     function handleResize() {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       nodes.length = 0;
