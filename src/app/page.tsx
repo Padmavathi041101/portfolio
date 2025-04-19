@@ -19,7 +19,7 @@ const AnimatedIntro = () => {
   const [showContent, setShowContent] = useState(false);
   const controls = useAnimation();
   const introRef = useRef(null);
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const animateIntro = async () => {
