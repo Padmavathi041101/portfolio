@@ -51,8 +51,8 @@ const AnimatedIntro = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    const nodes = [];
-    const particles = [];
+    const nodes: Node[] = [];
+    const particles: Particle[] = [];
     const numNodes = 50;
 
     canvas.width = window.innerWidth;
@@ -647,6 +647,8 @@ const EducationSection = () => {
       degree: 'Master of Science in Data science',
       university: 'St.Joseph\'s college (Autonomous) Tiruchirapalli',
       timeframe: '2022 - 2024',
+      // Added a description to avoid runtime error
+      description: 'Focused on advanced topics in data science, machine learning, and AI applications.'
     },
   ];
 
