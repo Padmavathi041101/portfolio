@@ -76,11 +76,11 @@ const AnimatedIntro = () => {
       }
 
       draw() {
+        if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
         ctx.fill();        
-
       }
 
       update() {
