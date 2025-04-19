@@ -87,10 +87,10 @@ const AnimatedIntro = () => {
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+        if (canvas && (this.x + this.radius > canvas.width || this.x - this.radius < 0)) {
           this.vx = -this.vx;
         }
-        if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+        if (canvas && (this.y + this.radius > canvas.height || this.y - this.radius < 0)) {
           this.vy = -this.vy;
         }
 
