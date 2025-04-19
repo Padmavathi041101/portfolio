@@ -555,7 +555,7 @@ const JobTitleRotator = () => {
   const jobTitles = ['AI Developer', 'AI Engineer', 'Data Scientist', 'Python Developer'];
   const [text] = useTypewriter({
     words: jobTitles,
-    loop: {},
+    loop: true,
     typeSpeed: 70,
     deleteSpeed: 50,
     delaySpeed: 2000,
